@@ -8,6 +8,7 @@ content:
   - name: site
     label: "Betrieb & Kontakt"
     type: file
+    format: json
     path: content/site.json
     fields:
       - { name: name, label: "Name", type: string }
@@ -22,6 +23,7 @@ content:
   - name: news
     label: "Neuigkeiten"
     type: file
+    format: json
     path: content/news.json
     fields:
       - name: items
@@ -36,6 +38,7 @@ content:
   - name: menu
     label: "Speisekarte"
     type: file
+    format: json
     path: content/menu.json
     fields:
       - name: sections
