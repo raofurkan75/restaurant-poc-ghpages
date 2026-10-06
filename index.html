@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>China Restaurant Demo – Speisekarte &amp; Neuigkeiten</title>
+<style>
+  :root{--ink:#1c1b19;--mut:#6b6459;--acc:#b3261e;--bg:#faf8f5;--card:#fff}
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+  header{padding:2rem 1.25rem 1.25rem;background:#fff;border-bottom:1px solid #eee}
+  h1{margin:0 0 .25rem;font-size:1.6rem}
+  .tag{color:var(--mut)}
+  main{max-width:720px;margin:0 auto;padding:1.25rem}
+  section{margin:0 0 1.75rem}
+  h2{font-size:1.05rem;letter-spacing:.02em;text-transform:uppercase;color:var(--mut);margin:0 0 .75rem}
+  .card{background:var(--card);border:1px solid #eee;border-radius:12px;padding:1rem 1.1rem;margin-bottom:.75rem}
+  .row{display:flex;justify-content:space-between;gap:1rem}
+  .price{white-space:nowrap;color:var(--mut)}
+  .news time{display:block;color:var(--mut);font-size:.85rem}
+  .cta{position:sticky;bottom:0;padding:.75rem 1.25rem 1rem;background:linear-gradient(#faf8f500,#faf8f5 35%)}
+  .btn{display:block;text-align:center;background:#25D366;color:#fff;text-decoration:none;font-weight:600;padding:1rem;border-radius:12px}
+  footer{color:var(--mut);font-size:.85rem;padding:1rem 1.25rem 3rem;text-align:center}
+  @media (prefers-reduced-motion:no-preference){.card{transition:box-shadow .15s}.card:hover{box-shadow:0 2px 14px #0000000d}}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="name">…</h1>
+  <div class="tag" id="tagline"></div>
+</header>
+
+<main>
+  <section>
+    <h2>Neuigkeiten</h2>
+    <div id="news"></div>
+  </section>
+
+  <section>
+    <h2>Speisekarte</h2>
+    <div id="menu"></div>
+  </section>
+
+  <section>
+    <h2>Öffnungszeiten &amp; Kontakt</h2>
+    <div class="card">
+      <div id="hours"></div>
+      <div id="address" style="margin-top:.5rem"></div>
+      <div id="phone" style="margin-top:.25rem"></div>
+    </div>
+  </section>
+</main>
+
+<div class="cta">
+  <a class="btn" id="wa" href="#" rel="noopener">Termin / Tisch per WhatsApp anfragen</a>
+</div>
+
+<footer>
+  <div id="imp">Impressum &amp; Datenschutz: siehe Seitenfuß (Demo)</div>
+</footer>
+
+<script>
+const get = (p) => fetch(p, {cache: "no-store"}).then(r => r.json());
+
+Promise.all([
+  get("content/site.json"),
+  get("content/menu.json"),
+  get("content/news.json"),
+]).then(([site, menu, news]) => {
+  document.title = site.name + " – Speisekarte & Neuigkeiten";
+  document.getElementById("name").textContent = site.name;
+  document.getElementById("tagline").textContent = site.tagline || "";
+  document.getElementById("hours").textContent = site.hours || "";
+  document.getElementById("address").textContent = site.address || "";
+  document.getElementById("phone").textContent = site.phone || "";
+  document.getElementById("imp").textContent = site.imprint_note || "";
+  const wa = document.getElementById("wa");
+  wa.href = "https://wa.me/" + String(site.whatsapp || "").replace(/[^0-9]/g, "") +
+            "?text=" + encodeURIComponent(site.whatsapp_text || "Guten Tag, ich möchte einen Tisch reservieren.");
+
+  document.getElementById("news").innerHTML = (news.items || []).map(n => `
+    <div class="card news">
+      <time>${n.date || ""}</time>
+      <strong>${n.title || ""}</strong>
+      <div>${n.body || ""}</div>
+    </div>`).join("") || "<div class='card'>Noch keine Einträge.</div>";
+
+  document.getElementById("menu").innerHTML = (menu.sections || []).map(s => `
+    <div class="card">
+      <strong>${s.title || ""}</strong>
+      ${(s.items || []).map(i => `<div class="row"><span>${i.name}</span><span class="price">${i.price || ""}</span></div>`).join("")}
+    </div>`).join("");
+}).catch(e => {
+  document.getElementById("name").textContent = "Inhalt konnte nicht geladen werden";
+  console.error(e);
+});
+</script>
+</body>
+</html>
