@@ -1,0 +1,19 @@
+{
+  "sections": [
+    {
+      "title": "Vorspeisen",
+      "items": [
+        { "name": "Gebratene Teigtaschen (6 Stk.)", "price": "6,90 €" },
+        { "name": "Sichuan Gurken", "price": "5,50 €" }
+      ]
+    },
+    {
+      "title": "Hauptgerichte",
+      "items": [
+        { "name": "Mapo Tofu", "price": "14,90 €" },
+        { "name": "Rindfleisch mit Chili", "price": "18,50 €" },
+        { "name": "Lamm mit Kumin", "price": "19,90 €" }
+      ]
+    }
+  ]
+}
