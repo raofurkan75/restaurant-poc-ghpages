@@ -1,0 +1,53 @@
+# Pages CMS 配置 —— 老板/客户在这里定义"能改什么"
+# 后台入口：https://app.pagescms.org/?repo=<owner>/<repo>
+media:
+  input: images
+  output: /images
+
+content:
+  - name: site
+    label: "Betrieb & Kontakt"
+    type: file
+    path: content/site.json
+    fields:
+      - { name: name, label: "Name", type: string }
+      - { name: tagline, label: "Untertitel", type: string }
+      - { name: hours, label: "Öffnungszeiten", type: string }
+      - { name: address, label: "Adresse", type: string }
+      - { name: phone, label: "Telefon", type: string }
+      - { name: whatsapp, label: "WhatsApp-Nummer (nur Ziffern, mit Ländercode)", type: string }
+      - { name: whatsapp_text, label: "WhatsApp-Text", type: text }
+      - { name: imprint_note, label: "Impressum-Hinweis", type: string }
+
+  - name: news
+    label: "Neuigkeiten"
+    type: file
+    path: content/news.json
+    fields:
+      - name: items
+        label: "Einträge"
+        type: object
+        list: true
+        fields:
+          - { name: date, label: "Datum", type: date }
+          - { name: title, label: "Titel", type: string }
+          - { name: body, label: "Text", type: text }
+
+  - name: menu
+    label: "Speisekarte"
+    type: file
+    path: content/menu.json
+    fields:
+      - name: sections
+        label: "Kategorien"
+        type: object
+        list: true
+        fields:
+          - { name: title, label: "Kategorie", type: string }
+          - name: items
+            label: "Gerichte"
+            type: object
+            list: true
+            fields:
+              - { name: name, label: "Gericht", type: string }
+              - { name: price, label: "Preis", type: string }
