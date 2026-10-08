@@ -21,16 +21,33 @@
   .cta{position:sticky;bottom:0;padding:.75rem 1.25rem 1rem;background:linear-gradient(#faf8f500,#faf8f5 35%)}
   .btn{display:block;text-align:center;background:#25D366;color:#fff;text-decoration:none;font-weight:600;padding:1rem;border-radius:12px}
   footer{color:var(--mut);font-size:.85rem;padding:1rem 1.25rem 3rem;text-align:center}
+  .hero{position:relative;height:230px;overflow:hidden;background:#e8e2d9}
+  .hero img{width:100%;height:100%;object-fit:cover;display:block}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.45))}
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .gallery a{display:block;aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#e8e2d9}
+  .gallery a:first-child{grid-column:1/-1;aspect-ratio:16/9}
+  .gallery img{width:100%;height:100%;object-fit:cover;display:block}
   @media (prefers-reduced-motion:no-preference){.card{transition:box-shadow .15s}.card:hover{box-shadow:0 2px 14px #0000000d}}
 </style>
 </head>
 <body>
+<div class="hero"><img src="img/hero.jpg" alt=""></div>
 <header>
   <h1 id="name">…</h1>
   <div class="tag" id="tagline"></div>
 </header>
 
 <main>
+  <section>
+    <h2>Einblicke</h2>
+    <div class="gallery">
+      <a href="img/g2.jpg"><img src="img/g2.jpg" alt=""></a>
+      <a href="img/g3.jpg"><img src="img/g3.jpg" alt=""></a>
+      <a href="img/g1.jpg"><img src="img/g1.jpg" alt=""></a>
+    </div>
+  </section>
+
   <section>
     <h2>Neuigkeiten</h2>
     <div id="news"></div>
